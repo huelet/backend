@@ -1,0 +1,13 @@
+Quick note on how to read error codes written here
+
+All errors returned to the client will always start with 0x
+
+The first digit after the 0x will always be 0 or 1. If it is 0, the error is non-fatal. If it is 1, the error is fatal.
+The second digit after the 0x will always be 0 or 1. If it is 0, the error is a problem with the user's input. If it is 1, the error is a bug. This defaults to 1.
+Digits 3 - 5 will identify the error. This is a unique number for each error. If you are contributing to the project and adding an error, please write it down here.
+
+-- Auth --
+600 - An internal server error occured.
+614 - The pasword is invalid, meaning it does not follow the password guidelines.
+615 - Password is compromised elsewhere.
+616 - Password contains invalid characters.
