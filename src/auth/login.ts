@@ -1,16 +1,19 @@
 import express from "express";
 import mongoose from "mongoose";
-import { useID } from "@dothq/id";
-import saltPassword from "../utils/salt";
+import { hashString } from "../utils/hash";
 import userSchema from "../models/user";
 
 const login = async (req: express.Request, res: express.Response) => {
     let body = req.body;
-    res.send("testing!!")
     const user = mongoose.model("users", userSchema);
-    const newUser = new user({ username: body.username, uid: useID(), password: await saltPassword(body.password), userCreated: Date.now()/1000 })
-    const resp = await newUser.save();
-    console.log(resp);
+    const resp = await user.find({ username: body.username });
+    const [salt, key] = resp[0].password.split(":");
+    const hashedPassword = await hashString(body.password)
+    if (hashedPassword === key) {
+        res.send("success!")
+    } else {
+        res.send("screw you")
+    }
 };
 
 export default login;

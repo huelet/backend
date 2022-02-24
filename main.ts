@@ -1,7 +1,7 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
-import { signup } from "./src/auth/index";
+import { signup, login } from "./src/auth/index";
 import db from "./src/utils/db";
 import bodyParser from "body-parser";
 
@@ -11,7 +11,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 
-app.get("/auth", bodyParser.json(), signup);
+app.get("/auth/up", bodyParser.json(), signup);
+app.get("/auth/in", bodyParser.json(), login)
 
 db();
 app.listen(PORT,async () => {
