@@ -11,8 +11,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 
-app.get("/auth/up", bodyParser.json(), signup);
-app.get("/auth/in", bodyParser.json(), login);
+app.post("/auth/up", bodyParser.json(), signup);
+app.post("/auth/in", bodyParser.json(), login);
 
 db();
 app.listen(PORT,async () => {
