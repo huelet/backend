@@ -4,6 +4,7 @@ import { useID } from "@dothq/id";
 import saltPassword from "../utils/salt";
 import userSchema from "../models/user";
 import { checkPwnedPwd, checkSafePwd } from "../utils/lib/pwdCheck";
+import betacodes from "../utils/lib/resources/betacodes";
 
 const signup = async (req: express.Request, res: express.Response) => {
     try {
@@ -16,6 +17,9 @@ const signup = async (req: express.Request, res: express.Response) => {
             return;
         } else if (isPwdSafe.success !== true) {
             res.status(400).json({ response: `Error: your password suck`, errorCode: isPwdSafe.message, resolution: "Try another password or use the built-in password generator" });
+            return;
+        } else if (!betacodes.codes.includes(body.accessCode) || !body.accessCode) {
+            res.status(403).json({ response: `Error: Alpha code is not valid`, errorCode: "0x10703", resolution: "Double-check that your alpha code is correct, or that you provided one in the first place" });
             return;
         }
         const user = mongoose.model("users", userSchema);
