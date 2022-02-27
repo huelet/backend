@@ -15,12 +15,9 @@ const checkPwnedPwd = async (password: string) => {
     return false;
 }
 const checkSafePwd = async (password: string) => {
-    if (!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/.test(password)) {
+    if (!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/.test(password)) {
         // to test if password meets generally accepted guidelines
         return { success: false, message: "0x10614" };
-    } else if (/((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i.test(password)) {
-        // to test if password uses non alphabet, numerical or symbolic characters
-        return { success: false, message: "0x10616" };
     } else {
         return { success: true };
     }
