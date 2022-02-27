@@ -5,7 +5,6 @@ import saltPassword from "../utils/salt";
 import userSchema from "../models/user";
 import { checkPwnedPwd, checkSafePwd } from "../utils/lib/pwdCheck";
 import betacodes from "../utils/lib/resources/betacodes";
-import jwt from "jsonwebtoken";
 
 const signup = async (req: express.Request, res: express.Response) => {
     try {
@@ -26,7 +25,6 @@ const signup = async (req: express.Request, res: express.Response) => {
         const user = mongoose.model("users", userSchema);
         const newUser = new user({ username: body.username, uid: useID(), password: await saltPassword(password), userCreated: Date.now()/1000 })
         await newUser.save();
-        jwt.sign(body.username, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
         res.status(200).json({ response: "Success!" });
     } catch (err) {
         console.log(err);
