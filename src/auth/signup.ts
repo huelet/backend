@@ -6,6 +6,9 @@ import userSchema from "../models/user";
 import { checkPwnedPwd, checkSafePwd } from "../utils/lib/pwdCheck";
 import betacodes from "../utils/lib/resources/betacodes";
 import jwt from "jsonwebtoken";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 const signup = async (req: express.Request, res: express.Response) => {
     try {
