@@ -30,8 +30,8 @@ const signup = async (req: express.Request, res: express.Response) => {
         const user = mongoose.model("users", userSchema);
         const newUser = new user({ username: body.username, uid: useID(), password: await saltPassword(password), userCreated: Date.now()/1000 })
         await newUser.save();
-        jwt.sign({ username: body.username}, jwtSecret, { expiresIn: '31d' })
-        res.status(200).json({ response: "Success!" });
+        const token = jwt.sign({ username: body.username}, jwtSecret, { expiresIn: '31d' })
+        res.status(200).json({ response: "Success!", token: token });
     } catch (err) {
         console.log(err);
         res.status(500).json({ response: `Error: ${err}`, errorCode: "0x11600", resolution: "Wait 15-20 minutes and try again. If it's not fixed, report a bug by pinging us on twitter @TeamHuelet" });
