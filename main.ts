@@ -14,7 +14,7 @@ app.use(cors());
 
 app.post("/auth/up", bodyParser.json(), signup);
 app.post("/auth/in", bodyParser.json(), login);
-app.get("/auth/token", authenticateToken);
+app.get("/auth/token", authenticateTokenRoute);
 app.post("/auth/privacy", bodyParser.json(), authenticateToken);
 
 db();
