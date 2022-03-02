@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 import cors from "cors";
 import { signup, login } from "./src/auth/index";
 import db from "./src/utils/db";
-import authenticateToken from "./src/auth/jwt/token";
+import { authenticateToken, authenticateTokenRoute } from "./src/auth/jwt/token";
 import bodyParser from "body-parser";
 
 dotenv.config();
@@ -14,6 +14,7 @@ app.use(cors());
 
 app.post("/auth/up", bodyParser.json(), signup);
 app.post("/auth/in", bodyParser.json(), login);
+app.get("/auth/token", authenticateToken);
 app.post("/auth/privacy", bodyParser.json(), authenticateToken);
 
 db();
