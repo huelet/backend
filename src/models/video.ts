@@ -4,14 +4,14 @@ const videoSchema = new Schema({
     vuid: String,
     url: String,
     title: String,
-    description: String,
+    description: { type: String, default: " " },
     authorId: String,
-    private: Boolean,
+    private: { type: Boolean, default: false },
     videoUploaded: Date,
-    views: Number,
-    upvotes: Number,
-    downvotes: Number,
-    shares: Number,
+    views: { type: Number, default: 0 },
+    upvotes: { type: Number, default: 0 },
+    downvotes: { type: Number, default: 0 },
+    shares: { type: Number, default: 0 },
 })
 
 export default videoSchema;
