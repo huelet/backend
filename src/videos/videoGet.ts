@@ -19,9 +19,11 @@ const getVideoInfo = async (req: express.Request, res: express.Response) => {
             vcraps: data.downvotes,
             vshares: data.shares
         })
+        return;
     } catch (err) {
         console.log(err);
         res.sendStatus(500).json({ response: `Error: ${err}`, errorCode: "yes", resolution: "Wait 15-20 minutes and try again. If it's not fixed, report a bug by pinging us on twitter @TeamHuelet" });
+        return
     }
 }
 
