@@ -15,8 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: 'https://huelet.net',
-  optionsSuccessStatus: 200
+  origin: '*'
 }));
 
 const upload = multer({
