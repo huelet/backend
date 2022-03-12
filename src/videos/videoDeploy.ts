@@ -11,7 +11,7 @@ const deployVideo = async (req: any /* don't ask why this is randomly 'any' */, 
       const body = req.body;
       console.log(body);
       const video = mongoose.model("videos", videoSchema);
-      const newUser = new video({ vuid: useID(), url: body.vurl, title: body.title, authorId: body.authorId, description: body.description, private: body.private });
+      const newUser = new video({ vuid: useID(2), url: body.vurl, title: body.title, authorId: body.authorId, description: body.description, private: body.private });
       const resp = await newUser.save();
       console.log(resp);
       res.status(200).json({
