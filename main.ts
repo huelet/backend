@@ -14,7 +14,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://huelet.net',
+  optionsSuccessStatus: 200
+}));
 
 const upload = multer({
     storage: multerAzure({
