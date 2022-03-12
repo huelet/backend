@@ -27,7 +27,7 @@ const upload = multer({
     }),
   });
 
-app.get("/videos/:vuid", getVideoInfo)
+app.get("/videos/:vuid", cors({origin: '*'}), getVideoInfo)
 app.post("/videos/upload/item", upload.any(), postVideoToCDN)
 app.post("/videos/deploy/item", bodyParser.json(), deployVideo)
 app.post("/auth/up", bodyParser.json(), signup);
