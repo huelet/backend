@@ -11,11 +11,34 @@ import multer from "multer";
 import { useID } from "@dothq/id";
 const multerAzure = require("mazure");
 
+let rb = require('fs').readFileSync("./rb.csv").split('\n');
+let i = 0;
+rb.forEach(element => {
+  rb[i] = element.split(',');
+  i++;
+}); // list of banned (russian) ip blocks
+rb.contains = (str) => {
+  let flag
+  for(let i of rb){
+    if(i[1].endsWith('.255')) flag = 0;
+    if(i[1].endsWith('.255.255')) flag = 1;
+    if(i[1].endsWith('.255.255.255')) flag = 2;
+
+    if(flag == 0 && str.split(11) == i[0].split(11)) return true;
+    if(flag == 1 && str.split(7) == i[0].split(7)) return true;
+    if(flag == 2 && str.split(3) == i[0].split(3)) return true;
+  }
+}
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
+
+app.use((req, res, next) => {
+  if(rb.contains(res.ip)) return res.send("Sorry, requests from the Russian Federation have been blocked. We apologize for the inconvinence.");
+  else next();
+})
 
 const upload = multer({
     storage: multerAzure({
