@@ -7,7 +7,7 @@ const videoSchema = new Schema({
     description: { type: String, default: " " },
     authorId: String,
     private: { type: Boolean, default: false },
-    videoUploaded: Date,
+    videoUploaded: String,
     views: { type: Number, default: 0 },
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },

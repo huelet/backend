@@ -17,17 +17,22 @@ const signup = async (req: express.Request, res: express.Response) => {
         let password = body.password;
         let isPwdPwned = await checkPwnedPwd(password);
         let isPwdSafe = await checkSafePwd(password);
+        const user = mongoose.model("users", userSchema);
+        const resp = await user.find({ username: body.username });
+        console.log(resp[0]);
         if (isPwdPwned === true) {
             res.status(400).json({ response: `Error: Password compromised elsewhere`, errorCode: "0x00615", resolution: "Try another password, one that you haven't used before." });
             return;
         } else if (isPwdSafe.success !== true) {
-            res.status(400).json({ response: `Error: your password suck`, errorCode: isPwdSafe.message, resolution: "Try another password or use the built-in password generator" });
+            res.status(400).json({ response: `Error: Your password does not meet the specified guidelines.`, errorCode: isPwdSafe.message, resolution: "Try another password or use the built-in password generator" });
             return;
         } else if (!betacodes.codes.includes(body.accessCode) || !body.accessCode) {
             res.status(403).json({ response: `Error: Alpha code is not valid`, errorCode: "0x10703", resolution: "Double-check that your alpha code is correct, or that you provided one in the first place" });
             return;
+        } else if (resp[0]) {    
+            res.status(400).json({ response: `Error: Username is already taken`, errorCode: "0x00611", resolution: "Try another username" });
+            return;
         }
-        const user = mongoose.model("users", userSchema);
         const newUser = new user({ username: body.username, uid: useID(), password: await saltPassword(password), userCreated: Date.now()/1000 })
         await newUser.save();
         const token = jwt.sign({ username: body.username}, jwtSecret, { expiresIn: '31d' })

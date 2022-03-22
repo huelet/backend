@@ -9,9 +9,11 @@ const userSchema = new Schema({
     pfp: { type: String, default: "https://cdn.huelet.net/assets/AvatarMenu_defaultAvatarSmall.png" },
     location: { type: String, default: "The vent" },
     private: Boolean,
+    creator: { Boolean, default: false },
+    approved: { Boolean, default: false },
     followers: Number,
-    userCreated: Date,
-    userAuth: Date
+    userCreated: String,
+    userAuth: String
 })
 
 export default userSchema;
