@@ -1,7 +1,7 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
-import { signup, login, userLookup, setPrivacy } from "./src/auth/index";
+import { signup, login, userLookup, setPrivacy, getPrivacy } from "./src/auth/index";
 import { getVideoInfo, postVideoToCDN, deployVideo } from "./src/videos/index";
 import { upvoteVideo, downvoteVideo } from "./src/interact/index";
 import db from "./src/utils/db";
@@ -38,6 +38,7 @@ app.post("/auth/up", bodyParser.json(), signup);
 app.post("/auth/in", bodyParser.json(), login);
 app.get("/auth/token", authenticateTokenRoute);
 app.get("/auth/user/:uid", userLookup);
+app.get("/auth/privacy", bodyParser.json(), authenticateToken, getPrivacy);
 app.post("/auth/privacy", bodyParser.json(), authenticateToken, setPrivacy);
 
 db();
