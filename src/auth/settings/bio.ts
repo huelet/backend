@@ -21,7 +21,7 @@ const setBio = async (req: express.Request, res: express.Response) => {
       await user.updateOne(
         { username: resp[0].username },
         {
-          private: bio,
+          bio: bio,
         }
       );
       res.status(200).json({
