@@ -24,7 +24,7 @@ const authenticateTokenRoute = async (req: express.Request, res: express.Respons
   jwt.verify(token, process.env.JWT_SECRET as string, (err: any, user: any) => {
     console.log(err)
     if (err) return res.sendStatus(403)
-    res.json({ response: "Success!" })
+    res.json({ response: "Success!", username: user.username })
   })
 }
 
