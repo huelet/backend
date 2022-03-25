@@ -68,8 +68,7 @@ app.post("/auth/privacy", bodyParser.json(), authenticateToken, setPrivacy);
 app.get("/auth/bio", getBio);
 app.patch("/auth/bio", bodyParser.json(), authenticateToken, setBio);
 app.get("/auth/pfp", getPfp);
-app.post("/auth/pfp", avatarUpload.any(), uploadPfp);
-app.patch("/auth/pfp", bodyParser.json(), authenticateToken, setPfp);
+app.patch("/auth/pfp", avatarUpload.any(), authenticateToken, setPfp);
 app.get("/auth/pronouns", getPronouns);
 app.patch("/auth/pronouns", bodyParser.json(), authenticateToken, setPronouns);
 
