@@ -40,7 +40,7 @@ const videoUpload = multer({
     key: process.env.AZURE_STORAGE_KEY,
     container: `videoasset-${useID(2)}-${Math.floor(Date.now() / 1000)}`,
   }),
-});
+}); 
 
 const avatarUpload = multer({
   storage: multerAzure({
