@@ -33,8 +33,13 @@ const setPfp = async (req: express.Request, res: express.Response) => {
 
 const uploadPfp = async (req: any, res: express.Response) => {
   try {
+    const avatarUrl = req.files[0].url;
+    const fullAvatarUrl = `${avatarUrl.replace(
+      "hueletuseravatars.blob.core.windows.net",
+      "avatars.hueletusercontent.com"
+    )}${process.env.AVATAR_STORAGE_SAS_TOKEN}`;
     res.status(200).json({
-      pfp: `${req.files[0]!?.url.replace("hueletuseravatars.blob.core.windows.net", "avatars.hueletusercontent.com")}${process.env.AVATAR_STORAGE_SAS_TOKEN}`,
+      pfp: fullAvatarUrl,
     });
     return;
   } catch (err) {
@@ -45,7 +50,7 @@ const uploadPfp = async (req: any, res: express.Response) => {
         "Wait 15-20 minutes and try again. If it's not fixed, report a bug by pinging us on twitter @TeamHuelet",
     });
   }
-}
+};
 
 const getPfp = async (req: express.Request, res: express.Response) => {
   try {
