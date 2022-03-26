@@ -13,7 +13,7 @@ const postVideoToCDN = async (req: any /* don't ask why this is randomly 'any' *
     })
   } catch (err) {
       console.log(err);
-      res.sendStatus(500).json({ response: `Error: ${err}`, errorCode: "yes", resolution: "Wait 15-20 minutes and try again. If it's not fixed, report a bug by pinging us on twitter @TeamHuelet" });
+      res.status(500).json({ response: `Error: ${err}`, errorCode: "yes", resolution: "Wait 15-20 minutes and try again. If it's not fixed, report a bug by pinging us on twitter @TeamHuelet" });
   }
 };
 

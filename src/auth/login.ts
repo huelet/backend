@@ -11,13 +11,17 @@ const login = async (req: express.Request, res: express.Response) => {
         const [salt, key] = resp[0].password.split(":");
         const hashedPassword = await hashString(body.password)
         if (hashedPassword === key) {
-            res.sendStatus(200).json({ response: "Success!" })
+            res.status(200).json({ response: "Success!" })
+            return;
         } else {
-            res.sendStatus(401).json({ response: `Error: Invalid password!`, errorCode: "0x00610", resolution: "Double-check your password and make sure it's right." })
+            res.status(401).json({ response: `Error: Invalid password!`, errorCode: "0x00610", resolution: "Double-check your password and make sure it's right." })
+            return;
         }
+        return;
     } catch (err) {
         console.log(err);
-        res.sendStatus(500).json({ response: `Error: ${err}`, errorCode: "0x11600", resolution: "Wait 15-20 minutes and try again. If it's not fixed, report a bug by pinging us on twitter @TeamHuelet" });
+        res.status(500).json({ response: `Error: ${err}`, errorCode: "0x11600", resolution: "Wait 15-20 minutes and try again. If it's not fixed, report a bug by pinging us on twitter @TeamHuelet" });
+        return;
     }
 };
 
