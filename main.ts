@@ -32,6 +32,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
+app.set('trust proxy', true);
 
 const videoUpload = multer({
   storage: multerAzure({
@@ -72,6 +73,9 @@ app.post("/auth/pfp", avatarUpload.any(), uploadPfp);
 app.patch("/auth/pfp", bodyParser.json(), authenticateToken, setPfp);
 app.get("/auth/pronouns", getPronouns);
 app.patch("/auth/pronouns", bodyParser.json(), authenticateToken, setPronouns);
+app.get("/captcha",  (req: express.Request, res: express.Response) => {
+  res.sendFile(__dirname + "/captcha.html");
+});
 
 db();
 app.listen(PORT, async () => {
