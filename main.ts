@@ -15,6 +15,7 @@ import {
   getPronouns,
   setPronouns,
 } from "./src/auth/index";
+import { verifyCaptcha } from "./src/auth/spam/hcaptcha";
 import { getVideoInfo, postVideoToCDN, deployVideo } from "./src/videos/index";
 import { upvoteVideo, downvoteVideo } from "./src/interact/index";
 import db from "./src/utils/db";
@@ -75,6 +76,9 @@ app.get("/auth/pronouns", getPronouns);
 app.patch("/auth/pronouns", bodyParser.json(), authenticateToken, setPronouns);
 app.get("/captcha",  (req: express.Request, res: express.Response) => {
   res.sendFile(__dirname + "/captcha.html");
+});
+app.post("/captcha", verifyCaptcha, (req: express.Request, res: express.Response) => {
+  res.send("Success!");
 });
 
 db();

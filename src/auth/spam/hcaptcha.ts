@@ -32,3 +32,5 @@ const verifyCaptcha = async (
     });
   }
 };
+
+export { verifyCaptcha };
