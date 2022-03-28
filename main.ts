@@ -14,6 +14,8 @@ import {
   setPfp,
   getPronouns,
   setPronouns,
+  getLocation,
+  setLocation,
 } from "./src/auth/index";
 import { verifyCaptcha } from "./src/auth/spam/hcaptcha";
 import { getVideoInfo, postVideoToCDN, deployVideo } from "./src/videos/index";
@@ -74,6 +76,8 @@ app.post("/auth/pfp", avatarUpload.any(), uploadPfp);
 app.patch("/auth/pfp", bodyParser.json(), authenticateToken, setPfp);
 app.get("/auth/pronouns", getPronouns);
 app.patch("/auth/pronouns", bodyParser.json(), authenticateToken, setPronouns);
+app.get("/auth/location", bodyParser.json(), getLocation);
+app.patch("/auth/location", bodyParser.json(), authenticateToken, setLocation);
 app.get("/captcha",  (req: express.Request, res: express.Response) => {
   res.sendFile(__dirname + "/captcha.html");
 });
