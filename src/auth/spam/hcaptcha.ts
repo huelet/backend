@@ -19,12 +19,19 @@ const verifyCaptcha = async (
     });
   }
   const resp = await axios.post("https://hcaptcha.com/siteverify", {
-    data: { secret: process.env.HCAPTCHA_SECRET, response: token, remoteip: ip, sitekey: "93fc8c73-f7bc-4431-b17c-e04daed89ffd" },
+    data: {
+      secret: process.env.HCAPTCHA_SECRET,
+      response: token,
+      remoteip: ip,
+      sitekey: "93fc8c73-f7bc-4431-b17c-e04daed89ffd",
+    },
   });
   console.log(resp);
   if (resp.data.success === true) {
     next();
   } else {
+    console.log(resp);
+
     res.status(401).json({
       response: "Error: Invalid token",
       errorCode: "0x00611",
