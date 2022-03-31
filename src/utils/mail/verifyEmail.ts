@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 const apikey: any | any = process.env.SENDGRID_API_KEY;
-email.setApiKey(apikey)
+email.setApiKey(apikey);
 
 const sendEmail = async (emailAddress: string, authCode: string) => {
     const emailContent = {
