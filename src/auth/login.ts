@@ -12,7 +12,7 @@ const login = async (req: express.Request, res: express.Response) => {
     let body = req.body;
     let jwtSecret: any | any = process.env.JWT_SECRET;
     const user = mongoose.model("users", userSchema);
-    if (req.params.creator === "true") {
+    if (req.query.creator === "true") {
       const resp = await user.findOne({
         email: body.email,
         creator: true
@@ -33,7 +33,7 @@ const login = async (req: express.Request, res: express.Response) => {
         });
         return;
       }
-    } else if (req.params.creator === "false") {
+    } else if (req.query.creator === "false") {
       const resp = await user.find({ username: body.username });
       const [salt, key] = resp[0].password.split(":");
       const hashedPassword = await hashString(body.password);
