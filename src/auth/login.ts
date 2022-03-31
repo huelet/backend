@@ -21,7 +21,7 @@ const login = async (req: express.Request, res: express.Response) => {
         email: body.email,
         creator: true
       });
-      const [salt, key] = resp[0].password.split(":");
+      const [salt, key] = resp.password.split(":");
       const hashedPassword = await hashString(body.password);
       if (hashedPassword === key) {
         const authCode = useID(1);
