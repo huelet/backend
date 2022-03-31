@@ -10,6 +10,7 @@
     "@dothq/id": "^1.0.1",
     "@ffmpeg/core": "^0.10.0",
     "@ffmpeg/ffmpeg": "^0.10.1",
+    "@sendgrid/mail": "^7.6.2",
     "axios": "^0.26.0",
     "azure-storage": "^2.10.7",
     "body-parser": "^1.19.2",
