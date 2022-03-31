@@ -28,7 +28,7 @@ const login = async (req: express.Request, res: express.Response) => {
         const authId = useID(4);
         const resp1 = new auth({ authId: authId, authCode: hashString(authCode), userId: resp[0].uid });
         await resp1.save();
-        sendEmail(resp[0].email, authCode);
+        sendEmail(body.email, authCode);
         res.status(102).json({ response: "Success!" });
         return;
       } else {
