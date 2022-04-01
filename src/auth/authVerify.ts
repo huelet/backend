@@ -14,8 +14,8 @@ const verifyAuth = async (req: express.Request, res: express.Response) => {
     const resp = await auth.findOne({ authId: body.authId });
     if (resp) {
       if (resp.authCode === body.authCode) {
-        const resp = await auth.deleteOne({ authId: body.authId });
-        const token = jwt.sign({ username: resp[0].username }, jwtSecret, {
+        await auth.deleteOne({ authId: body.authId });
+        const token = jwt.sign({ username: resp.username }, jwtSecret, {
           expiresIn: "31d",
         });
         res.status(200).json({ response: "Success!", token: token });
