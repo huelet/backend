@@ -4,6 +4,7 @@ import cors from "cors";
 import {
   signup,
   login,
+  verifyAuth,
   userLookup,
   setPrivacy,
   getPrivacy,
@@ -65,6 +66,7 @@ app.get("/videos/interact/comments/:vuid");
 app.delete("/videos/interact/comments/:vuid");
 app.post("/auth/up", bodyParser.json(), signup);
 app.post("/auth/in", bodyParser.json(), login);
+app.post("/auth/verify", bodyParser.json(), verifyAuth);
 app.get("/auth/token", authenticateTokenRoute);
 app.get("/auth/user/:uid", userLookup);
 app.get("/auth/privacy", authenticateToken, getPrivacy);

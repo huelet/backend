@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import verifySchema from "../models/verify";
+import { hashString } from "../utils/hash";
 import jwt from "jsonwebtoken";
 
 dotenv.config();
@@ -13,7 +14,8 @@ const verifyAuth = async (req: express.Request, res: express.Response) => {
     const auth = mongoose.model("verification", verifySchema);
     const resp = await auth.findOne({ authId: body.authId });
     if (resp) {
-      if (resp.authCode === body.authCode) {
+      const submittedCode = await hashString(body.authCode);
+      if (resp.authCode === submittedCode) {
         await auth.deleteOne({ authId: body.authId });
         const token = jwt.sign({ username: resp.username }, jwtSecret, {
           expiresIn: "31d",

@@ -8,10 +8,11 @@ Digits 3 - 5 will identify the error. This is a unique number for each error. If
 
 -- Auth --
 600 - An internal server error occured.
+601 - The user does not exist.
 610 - The password is incorrect.
 614 - The pasword is invalid, meaning it does not follow the password guidelines.
 615 - Password is compromised elsewhere.
 616 - Password contains invalid characters.
 
 -- Misc --
-703 -  Alpha code is not valid
+703 -  Alpha code is not valid.

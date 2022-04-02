@@ -8,7 +8,7 @@ email.setApiKey(apikey);
 const sendEmail = async (emailAddress: string, authCode: string) => {
     const emailContent = {
         to: emailAddress,
-        from: "em9466.mx.huelet.net",
+        from: "hi@mx.huelet.net",
         subject: "Verify your email",
         text: `Verify your email. Your code is ${authCode}`,
     }

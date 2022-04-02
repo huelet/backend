@@ -21,15 +21,23 @@ const login = async (req: express.Request, res: express.Response) => {
         email: body.email,
         creator: true
       });
+      if (!resp) {
+        res.status(401).json({
+          response: `Error: User not found!`,
+          errorCode: "0x00601",
+          resolution: "Double-check your email and make sure it's right.",
+        });
+        return;
+      }
       const [salt, key] = resp.password.split(":");
       const hashedPassword = await hashString(body.password);
       if (hashedPassword === key) {
         const authCode = useID(1);
         const authId = useID(4);
-        const resp1 = new auth({ authId: authId, authCode: hashString(authCode), userId: resp[0].uid });
+        const resp1 = new auth({ authId: authId, authCode: await hashString(authCode), userId: resp.uid });
         await resp1.save();
         sendEmail(body.email, authCode);
-        res.status(102).json({ response: "Success!" });
+        res.status(200).json({ response: "Success!", verificationId: authId });
         return;
       } else {
         res.status(401).json({
