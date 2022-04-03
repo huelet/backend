@@ -32,12 +32,10 @@ const login = async (req: express.Request, res: express.Response) => {
       const [salt, key] = resp.password.split(":");
       const hashedPassword = await hashString(body.password);
       if (hashedPassword === key) {
-        const authCode = useID(1);
-        const authId = useID(4);
-        const resp1 = new auth({ authId: authId, authCode: await hashString(authCode), userId: resp.uid });
-        await resp1.save();
-        sendEmail(body.email, authCode);
-        res.status(200).json({ response: "Success!", verificationId: authId });
+        const token = jwt.sign({ username: resp.username }, jwtSecret, {
+          expiresIn: "31d",
+        });
+        res.status(200).json({ response: "Success!", token: token });
         return;
       } else {
         res.status(401).json({
