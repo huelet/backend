@@ -45,7 +45,7 @@ const login = async (req: express.Request, res: express.Response) => {
         });
         return;
       }
-    } else if (req.query.creator === "false") {
+    } else if (req.query.creator === "false" || !req.query.creator) {
       const resp = await user.find({ username: body.username });
       const [salt, key] = resp[0].password.split(":");
       const hashedPassword = await hashString(body.password);
