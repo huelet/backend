@@ -128,6 +128,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/latinize@^0.2.15":
+  version "0.2.15"
+  resolved "https://registry.yarnpkg.com/@types/latinize/-/latinize-0.2.15.tgz#a1718e53c5d6a37a554cbe4209e4ab15adc975f9"
+  integrity sha1-oXGOU8XWo3pVTL5CCeSrFa3Jdfk=
+
 "@types/mime@^1":
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.2.tgz#93e25bf9ee75fe0fd80b594bc4feb0e862111b5a"
@@ -162,6 +167,16 @@
   dependencies:
     "@types/mime" "^1"
     "@types/node" "*"
+
+"@types/unidecode@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@types/unidecode/-/unidecode-0.1.1.tgz#e403b69809a5ac521294753170f0fa22cdf57b27"
+  integrity sha512-ReYnWajSY+QnZk5dBpSztek+kHUtpHJkf0pSZBx2ZVIxcSBkRLY7m0caPwVKXC6WjE65G2fVU84EpiFbdJVDuQ==
+
+"@types/unorm@^1.3.28":
+  version "1.3.28"
+  resolved "https://registry.yarnpkg.com/@types/unorm/-/unorm-1.3.28.tgz#580141162f2fd221faae2b2d68da6c839402c375"
+  integrity sha512-l3uh18vcvkQ964HSK7Tx0YbhxN/Hj+k1w3nLT08n770lngqVKljmF7Ht4e7elFbx6L2WYse97whtpJOo8MHtxQ==
 
 "@types/webidl-conversions@*":
   version "6.1.1"
