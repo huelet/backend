@@ -19,10 +19,15 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
+    "latinize": "^0.5.0",
     "mazure": "^2.0.1",
     "mongoose": "^6.2.3",
     "mongoose-type-url": "^2.1.0",
-    "multer": "^1.4.4"
+    "multer": "^1.4.4",
+    "profane-words": "^1.4.0",
+    "remove-accents": "^0.4.2",
+    "unidecode": "^0.1.8",
+    "unorm": "^1.6.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

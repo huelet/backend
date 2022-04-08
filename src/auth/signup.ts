@@ -4,6 +4,7 @@ import { useID } from "@dothq/id";
 import saltPassword from "../utils/salt";
 import userSchema from "../models/user";
 import { checkPwnedPwd, checkSafePwd } from "../utils/lib/pwdCheck";
+import { sanitizeString, cleanString } from "../utils/checktext";
 import betacodes from "../utils/lib/resources/betacodes";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
@@ -32,8 +33,11 @@ const signup = async (req: express.Request, res: express.Response) => {
         } else if (resp[0]) {    
             res.status(400).json({ response: `Error: Username is already taken`, errorCode: "0x00611", resolution: "Try another username" });
             return;
+        } else if (await cleanString(body.username) === false) {
+            res.status(400).json({ response: `Error: Username contains invalid/profane content.`, errorCode: "0x00607", resolution: "Try another username" });
+            return;
         }
-        const newUser = new user({ username: body.username, uid: useID(), password: await saltPassword(password), userCreated: Date.now()/1000 })
+        const newUser = new user({ username: await sanitizeString(body.username), uid: useID(), password: await saltPassword(password), userCreated: Date.now()/1000 })
         await newUser.save();
         const token = jwt.sign({ username: body.username}, jwtSecret, { expiresIn: '31d' })
         res.status(200).json({ response: "Success!", token: token });
