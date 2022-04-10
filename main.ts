@@ -18,9 +18,8 @@ import {
   getLocation,
   setLocation,
 } from "./src/auth/index";
-import { verifyCaptcha } from "./src/auth/spam/hcaptcha";
 import { getVideoInfo, postVideoToCDN, deployVideo } from "./src/videos/index";
-import { upvoteVideo, downvoteVideo } from "./src/interact/index";
+import { upvoteVideo, downvoteVideo, getComments, addComment } from "./src/interact/index";
 import db from "./src/utils/db";
 import {
   authenticateToken,
@@ -61,8 +60,8 @@ app.post("/videos/upload/item", videoUpload.any(), postVideoToCDN);
 app.post("/videos/deploy/item", bodyParser.json(), deployVideo);
 app.post("/videos/interact/upvote/:vuid", bodyParser.json(), upvoteVideo);
 app.post("/videos/interact/downvote/:vuid", bodyParser.json(), downvoteVideo);
-app.post("/videos/interact/comments/:vuid");
-app.get("/videos/interact/comments/:vuid");
+app.get("/videos/interact/comments/:vuid", getComments);  
+app.post("/videos/interact/comments/:vuid", bodyParser.json(), addComment);
 app.delete("/videos/interact/comments/:vuid");
 app.post("/auth/up", bodyParser.json(), signup);
 app.post("/auth/in", bodyParser.json(), login);
@@ -80,12 +79,6 @@ app.get("/auth/pronouns", getPronouns);
 app.patch("/auth/pronouns", bodyParser.json(), authenticateToken, setPronouns);
 app.get("/auth/location", bodyParser.json(), getLocation);
 app.patch("/auth/location", bodyParser.json(), authenticateToken, setLocation);
-app.get("/captcha",  (req: express.Request, res: express.Response) => {
-  res.sendFile(__dirname + "/captcha.html");
-});
-app.post("/captcha", verifyCaptcha, (req: express.Request, res: express.Response) => {
-  res.send("Success!");
-});
 
 db();
 app.listen(PORT, async () => {
