@@ -24,7 +24,7 @@ const addComment = async (
   try {
     const video = mongoose.model("videos", videoSchema);
     const resp = await video.find({ vuid: req.params.vuid });
-    const comment =  [ { content: marked.parse(req.body.content), id: useID(), upvotes: 0, downvotes: 0, commentPublished: Math.floor(Date.now() / 1000), author: "ur mom" } ];
+    const comment =  [ { content: marked.parse(req.body.content), id: useID(), upvotes: 0, downvotes: 0, commentPublished: Math.floor(Date.now() / 1000), author: req.body.username } ];
     await video.updateOne(
       { vuid: req.params.vuid },
       {
