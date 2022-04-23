@@ -19,7 +19,13 @@ import {
   setLocation,
 } from "./src/auth/index";
 import { getVideoInfo, postVideoToCDN, deployVideo } from "./src/videos/index";
-import { upvoteVideo, downvoteVideo, getComments, addComment } from "./src/interact/index";
+import {
+  upvoteVideo,
+  downvoteVideo,
+  getComments,
+  addComment,
+  searchVideos
+} from "./src/interact/index";
 import db from "./src/utils/db";
 import {
   authenticateToken,
@@ -35,7 +41,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.set('trust proxy', true);
+app.set("trust proxy", true);
 
 const videoUpload = multer({
   storage: multerAzure({
@@ -44,7 +50,7 @@ const videoUpload = multer({
     key: process.env.AZURE_STORAGE_KEY,
     container: `videoasset-${useID(2)}-${Math.floor(Date.now() / 1000)}`,
   }),
-}); 
+});
 
 const avatarUpload = multer({
   storage: multerAzure({
@@ -60,9 +66,10 @@ app.post("/videos/upload/item", videoUpload.any(), postVideoToCDN);
 app.post("/videos/deploy/item", bodyParser.json(), deployVideo);
 app.post("/videos/interact/upvote/:vuid", bodyParser.json(), upvoteVideo);
 app.post("/videos/interact/downvote/:vuid", bodyParser.json(), downvoteVideo);
-app.get("/videos/interact/comments/:vuid", getComments);  
+app.get("/videos/interact/comments/:vuid", getComments);
 app.post("/videos/interact/comments/:vuid", bodyParser.json(), addComment);
 app.delete("/videos/interact/comments/:vuid");
+app.get("/videos/search", searchVideos);
 app.post("/auth/up", bodyParser.json(), signup);
 app.post("/auth/in", bodyParser.json(), login);
 app.post("/auth/verify", bodyParser.json(), verifyAuth);
