@@ -17,7 +17,8 @@ const getVideoInfo = async (req: express.Request, res: express.Response) => {
             vviews: data.views,
             vclaps: data.upvotes,
             vcraps: data.downvotes,
-            vshares: data.shares
+            vshares: data.shares,
+            vcomments: data.comments,
         })
         return;
     } catch (err) {
