@@ -6,7 +6,20 @@ const userLookup = async (req: express.Request, res: express.Response) => {
   try {
     const user = mongoose.model("users", userSchema);
     const resp = await user.find({ username: req.query.username });
-    res.status(200).json(resp[0]);
+    res.status(200).json({
+      success: true,
+      data: {
+        uid: resp[0].uid,
+        username: resp[0].username,
+        email: resp[0].email,
+        bio: resp[0].bio,
+        avatar: resp[0].pfp,
+        pronouns: resp[0].pronouns,
+        location: resp[0].location,
+        creator: resp[0].creator,
+        approved: resp[0].approved,
+      }
+    });
     return;
   } catch (err) {
     console.log(err);
