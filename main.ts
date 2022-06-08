@@ -74,7 +74,7 @@ app.post("/auth/up", bodyParser.json(), signup);
 app.post("/auth/in", bodyParser.json(), login);
 app.post("/auth/verify", bodyParser.json(), verifyAuth);
 app.get("/auth/token", authenticateTokenRoute);
-app.get("/auth/user/:uid", userLookup);
+app.get("/auth/user", userLookup);
 app.get("/auth/privacy", authenticateToken, getPrivacy);
 app.post("/auth/privacy", bodyParser.json(), authenticateToken, setPrivacy);
 app.get("/auth/bio", getBio);
