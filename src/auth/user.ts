@@ -4,9 +4,8 @@ import userSchema from "../models/user";
 
 const userLookup = async (req: express.Request, res: express.Response) => {
   try {
-    let params = req.params;
     const user = mongoose.model("users", userSchema);
-    const resp = await user.find({ username: params.username });
+    const resp = await user.find({ username: req.query.username });
     res.status(200).json(resp[0]);
     return;
   } catch (err) {
