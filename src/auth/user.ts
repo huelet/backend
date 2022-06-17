@@ -5,7 +5,10 @@ import userSchema from "../models/user";
 const userLookup = async (req: express.Request, res: express.Response) => {
   try {
     const user = mongoose.model("users", userSchema);
-    const resp = await user.find({ username: req.query.username });
+    let resp = await user.find({ username: req.query.username });
+    if (!resp[0]) {
+      resp = await user.find({ uid: req.query.uid });
+    }
     res.status(200).json({
       success: true,
       data: {
@@ -18,19 +21,17 @@ const userLookup = async (req: express.Request, res: express.Response) => {
         location: resp[0].location,
         creator: resp[0].creator,
         approved: resp[0].approved,
-      }
+      },
     });
     return;
   } catch (err) {
     console.log(err);
-    res
-      .status(500)
-      .json({
-        response: `Error: ${err}`,
-        errorCode: "0x11600",
-        resolution:
-          "Wait 15-20 minutes and try again. If it's not fixed, report a bug by pinging us on twitter @TeamHuelet",
-      });
+    res.status(500).json({
+      response: `Error: ${err}`,
+      errorCode: "0x11600",
+      resolution:
+        "Wait 15-20 minutes and try again. If it's not fixed, report a bug by pinging us on twitter @TeamHuelet",
+    });
     return;
   }
 };
