@@ -24,13 +24,42 @@ const addComment = async (
   try {
     const video = mongoose.model("videos", videoSchema);
     const resp = await video.find({ vuid: req.params.vuid });
-    const comment =  [ { content: marked.parse(req.body.content), id: useID(), upvotes: 0, downvotes: 0, commentPublished: Math.floor(Date.now() / 1000), author: req.body.username } ];
-    await video.updateOne(
-      { vuid: req.params.vuid },
-      {
-        comments: [resp[0].comments, comment],
-      }
-    );
+    if (!resp[0].comments[0]) {
+      let updatedComment = [
+        {
+          content: marked.parse(req.body.content),
+          id: useID(),
+          upvotes: 0,
+          downvotes: 0,
+          commentPublished: Math.floor(Date.now() / 1000),
+          author: req.body.username,
+        },
+      ];
+      await video.updateOne(
+        { vuid: req.params.vuid },
+        {
+          comments: updatedComment,
+        }
+      );
+    } else if (resp[0].comments[0]) {
+      let updatedComment = [
+        resp[0].comments[0],
+        {
+          content: marked.parse(req.body.content),
+          id: useID(),
+          upvotes: 0,
+          downvotes: 0,
+          commentPublished: Math.floor(Date.now() / 1000),
+          author: req.body.username,
+        },
+      ];
+      await video.updateOne(
+        { vuid: req.params.vuid },
+        {
+          comments: updatedComment,
+        }
+      );
+    }
     res.status(200).json({
       success: true,
     });
