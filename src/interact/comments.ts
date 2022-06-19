@@ -83,7 +83,7 @@ const getComments = async (
     const video = mongoose.model("videos", videoSchema);
     const resp = await video.find({ vuid: req.params.vuid });
     res.status(200).json({
-      comments: resp[0].comments[1],
+      comments: resp[0].comments,
       success: true,
     });
     return;
