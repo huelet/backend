@@ -34,6 +34,7 @@ const example = (req: express.Request, res: express.Response) => {
 module.exports = example;
 ```
 
-Put your code that you spent so long on in your own fork. Make a pull request to main. 
+Put your code that you spent so long on in your own fork. Make a pull request to main.
+Please use [gitmoji](https://gitmoji.dev) in your commit messages!
 Make sure any conflicts are resolved by the time we get to it.
 If you are a developer with us, put your code on a new branch and make a PR.
