@@ -7,8 +7,6 @@ const setPronouns = async (req: express.Request, res: express.Response) => {
   try {
     let body: any = req.body;
     let pronouns = body.pronouns;
-    let parsedPronouns = pronounParser(pronouns)
-    pronouns = [parsedPronouns.subject, parsedPronouns.object]
     const user: mongoose.Model<any, {}, {}, {}> = mongoose.model(
       "users",
       userSchema
@@ -17,7 +15,7 @@ const setPronouns = async (req: express.Request, res: express.Response) => {
     await user.updateOne(
       { username: resp[0].username },
       {
-        pronouns: pronouns,
+        pronouns: pronouns.split("/"),
       }
     );
     res.status(200).json({
