@@ -34,7 +34,7 @@ const setPronouns = async (req: express.Request, res: express.Response) => {
 
 const getPronouns = async (req: express.Request, res: express.Response) => {
   try {
-    const user: mongoose.Model<any, {}, {}, {}> = mongoose.model(
+    const user: any | any = mongoose.model(
       "users",
       userSchema
     );

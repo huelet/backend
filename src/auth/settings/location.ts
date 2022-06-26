@@ -51,7 +51,7 @@ const setLocation = async (req: express.Request, res: express.Response) => {
 
 const getLocation = async (req: express.Request, res: express.Response) => {
   try {
-    const user: mongoose.Model<any, {}, {}, {}> = mongoose.model(
+    const user: any | any = mongoose.model(
       "users",
       userSchema
     );
