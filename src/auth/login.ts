@@ -29,7 +29,7 @@ const login = async (req: express.Request, res: express.Response) => {
         });
         return;
       }
-      const [salt, key] = resp.password.split(":");
+      const [salt, key]: any | any = resp?.password?.split(":");
       const hashedPassword = await hashString(body.password);
       if (hashedPassword === key) {
         const token = jwt.sign({ username: resp.username }, jwtSecret, {
@@ -47,7 +47,7 @@ const login = async (req: express.Request, res: express.Response) => {
       }
     } else if (req.query.creator === "false" || !req.query.creator) {
       const resp = await user.find({ username: body.username });
-      const [salt, key] = resp[0].password.split(":");
+      const [salt, key]: any | any = resp[0]?.password?.split(":");
       const hashedPassword = await hashString(body.password);
       if (hashedPassword === key) {
         const token = jwt.sign({ username: body.username }, jwtSecret, {
