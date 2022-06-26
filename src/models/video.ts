@@ -5,6 +5,7 @@ const videoSchema = new Schema({
     url: String,
     title: String,
     description: { type: String, default: " " },
+    thumbnail: String,
     authorId: String,
     private: { type: Boolean, default: false },
     videoUploaded: String,
