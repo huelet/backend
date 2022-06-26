@@ -1,6 +1,5 @@
 import express from "express";
 import mongoose from "mongoose";
-import pronounParser from "pronouns";
 import userSchema from "../../models/user";
 
 const setPronouns = async (req: express.Request, res: express.Response) => {
