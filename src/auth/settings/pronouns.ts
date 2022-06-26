@@ -1,34 +1,29 @@
 import express from "express";
 import mongoose from "mongoose";
+import pronounParser from "pronouns";
 import userSchema from "../../models/user";
 
 const setPronouns = async (req: express.Request, res: express.Response) => {
   try {
     let body: any = req.body;
     let pronouns = body.pronouns;
+    let parsedPronouns = pronounParser(pronouns)
+    pronouns = [parsedPronouns.subject, parsedPronouns.object]
     const user: mongoose.Model<any, {}, {}, {}> = mongoose.model(
       "users",
       userSchema
     );
     const resp: any[] = await user.find({ username: body.username });
-    if (typeof pronouns !== "object") {
-      res.status(400).json({
-        success: false,
-        message: "Invalid option. Stop being naughty.",
-      });
-      return;
-    } else {
-      await user.updateOne(
-        { username: resp[0].username },
-        {
-          pronouns: pronouns,
-        }
-      );
-      res.status(200).json({
-        success: true,
-      });
-      return;
-    }
+    await user.updateOne(
+      { username: resp[0].username },
+      {
+        pronouns: pronouns,
+      }
+    );
+    res.status(200).json({
+      success: true,
+    });
+    return;
   } catch (err) {
     console.log(err);
     res.status(500).json({
