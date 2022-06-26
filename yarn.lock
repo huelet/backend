@@ -1470,11 +1470,6 @@ profane-words@^1.4.0:
   resolved "https://registry.yarnpkg.com/profane-words/-/profane-words-1.5.1.tgz#f6f5923e29af17c05a1c4b4d5a1a954b7116b2bf"
   integrity sha512-3bw74FPEHtYjmtV3Rso7+kv752wE0XpENXwzIgFsWVt2Nw8NbBU43pnKSUUc2XHJgnSR6KaPdFlgXLu5YJz4XQ==
 
-pronouns@^1.3.3:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/pronouns/-/pronouns-1.3.3.tgz#c2684724f31020225dc1734f1887949ef5424f1b"
-  integrity sha512-Tx9PA3PSyYEaMvjKiFFg5x010hm5uZzJEQsXcCVsx/Cez08WJeFOe8B5rr8ytG7UV/2IRNVpss5YxeVERBYm0g==
-
 proxy-addr@~2.0.7:
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/proxy-addr/-/proxy-addr-2.0.7.tgz#f19fe69ceab311eeb94b42e70e8c2070f9ba1025"
