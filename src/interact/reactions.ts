@@ -9,9 +9,12 @@ dotenv.config();
 const upvoteVideo = async (req: any /* don't ask why this is randomly 'any' */, res: express.Response) => {
     try {
         const video = mongoose.model("videos", videoSchema);
-        const resp = await video.find({ vuid: req.params.vuid });
+        const resp: mongoose.Document<any> | any = await video.find({ vuid: req.params.vuid });
+        let upvotes = resp[0].upvotes;
+        upvotes = resp[0].upvotes + 1
+
         await video.updateOne({vuid: req.params.vuid}, {
-            upvotes: resp[0].upvotes + 1
+            upvotes: upvotes
         })
         res.status(200).json({
             success: true
@@ -26,9 +29,12 @@ const upvoteVideo = async (req: any /* don't ask why this is randomly 'any' */, 
   const downvoteVideo = async (req: any /* don't ask why this is randomly 'any' */, res: express.Response) => {
     try {
         const video = mongoose.model("videos", videoSchema);
-        const resp = await video.find({ vuid: req.params.vuid });
+        const resp: mongoose.Document<any> | any = await video.find({ vuid: req.params.vuid });
+        let upvotes = resp[0].upvotes;
+        upvotes = resp[0].upvotes + 1
+        
         await video.updateOne({vuid: req.params.vuid}, {
-            downvotes: resp[0].upvotes + 1
+            downvotes: upvotes
         })
         res.status(200).json({
             success: true

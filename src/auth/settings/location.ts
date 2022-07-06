@@ -1,11 +1,15 @@
 import express from "express";
 import mongoose from "mongoose";
+import sanitizeHtml from "sanitize-html";
 import userSchema from "../../models/user";
 
 const setLocation = async (req: express.Request, res: express.Response) => {
   try {
     let body: any = req.body;
     let location = body.location;
+    let cleanedLocation = sanitizeHtml(location, {
+      allowedTags: []
+    });
     const user: mongoose.Model<any, {}, {}, {}> = mongoose.model(
       "users",
       userSchema
@@ -17,11 +21,16 @@ const setLocation = async (req: express.Request, res: express.Response) => {
         message: "Invalid option. Stop being naughty.",
       });
       return;
+    } else if (location.length > 30) {
+      res.status(413).json({
+        success: false,
+        message: "Location value too long."
+      })
     } else {
       await user.updateOne(
         { username: resp[0].username },
         {
-          location: location,
+          location: cleanedLocation,
         }
       );
       res.status(200).json({
@@ -42,7 +51,7 @@ const setLocation = async (req: express.Request, res: express.Response) => {
 
 const getLocation = async (req: express.Request, res: express.Response) => {
   try {
-    const user: mongoose.Model<any, {}, {}, {}> = mongoose.model(
+    const user: any | any = mongoose.model(
       "users",
       userSchema
     );

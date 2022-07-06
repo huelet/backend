@@ -1,11 +1,20 @@
 import express from "express";
 import mongoose from "mongoose";
+import sanitizeHtml from "sanitize-html";
 import userSchema from "../../models/user";
 
 const setBio = async (req: express.Request, res: express.Response) => {
   try {
     let body: any = req.body;
     let bio = body.bio;
+    let cleanedBio = sanitizeHtml(bio, {
+      allowedTags: ["p", "b", "i", "em", "strong"],
+      allowedClasses: {
+        "*": [
+          "*"
+        ]
+      }
+    });
     const user: mongoose.Model<any, {}, {}, {}> = mongoose.model(
       "users",
       userSchema
@@ -17,11 +26,16 @@ const setBio = async (req: express.Request, res: express.Response) => {
         message: "Invalid option. Stop being naughty.",
       });
       return;
+    } else if (bio.length > 256) {
+      res.status(413).json({
+        success: false,
+        message: "Bio too long."
+      })
     } else {
       await user.updateOne(
         { username: resp[0].username },
         {
-          bio: bio,
+          bio: cleanedBio,
         }
       );
       res.status(200).json({
@@ -42,7 +56,7 @@ const setBio = async (req: express.Request, res: express.Response) => {
 
 const getBio = async (req: express.Request, res: express.Response) => {
   try {
-    const user: mongoose.Model<any, {}, {}, {}> = mongoose.model(
+    const user: any | any = mongoose.model(
       "users",
       userSchema
     );

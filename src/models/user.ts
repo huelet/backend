@@ -6,16 +6,17 @@ const userSchema = new Schema({
     email: String,
     phoneNumber: Number,
     password: String,
-    bio: { type: String, default: "sussy amogus impostor" },
+    bio: { type: String, default: "no bio" },
     pfp: { type: String, default: "https://cdn.huelet.net/assets/AvatarMenu_defaultAvatarSmall.png" },
-    location: { type: String, default: "The vent" },
+    location: { type: String, default: "no location" },
     private: Boolean,
     pronouns: Object,
     creator: { type: Boolean, default: false },
     approved: { type: Boolean, default: false },
-    followers: { type: Number, default: 0 },
-    userCreated: String,
-    userAuth: String
+    followers: { type: Object, default: [] },
+    videos: { type: Object, default: null },
+    userCreated: Number,
+    userAuth: Number
 })
 
 export default userSchema;

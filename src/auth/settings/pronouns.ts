@@ -11,24 +11,16 @@ const setPronouns = async (req: express.Request, res: express.Response) => {
       userSchema
     );
     const resp: any[] = await user.find({ username: body.username });
-    if (typeof pronouns !== "object") {
-      res.status(400).json({
-        success: false,
-        message: "Invalid option. Stop being naughty.",
-      });
-      return;
-    } else {
-      await user.updateOne(
-        { username: resp[0].username },
-        {
-          pronouns: pronouns,
-        }
-      );
-      res.status(200).json({
-        success: true,
-      });
-      return;
-    }
+    await user.updateOne(
+      { username: resp[0].username },
+      {
+        pronouns: pronouns.split("/"),
+      }
+    );
+    res.status(200).json({
+      success: true,
+    });
+    return;
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -42,7 +34,7 @@ const setPronouns = async (req: express.Request, res: express.Response) => {
 
 const getPronouns = async (req: express.Request, res: express.Response) => {
   try {
-    const user: mongoose.Model<any, {}, {}, {}> = mongoose.model(
+    const user: any | any = mongoose.model(
       "users",
       userSchema
     );

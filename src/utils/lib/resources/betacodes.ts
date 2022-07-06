@@ -1,5 +1,6 @@
 const betacodes = {
   "codes": [
+    "FOREVER",
     "e07cqj33TlR0MYk6",
     "dg7rgNj5IEvuv7Co",
     "uQd6PxcIRDnISueZ",
