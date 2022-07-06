@@ -12,7 +12,7 @@ const videoSchema = new Schema({
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },
     shares: { type: Number, default: 0 },
-    comments: { type: Object, default: {} },
+    comments: { type: Object, default: [] },
 })
 
 export default videoSchema;
