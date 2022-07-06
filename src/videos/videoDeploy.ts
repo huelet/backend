@@ -12,10 +12,10 @@ const deployVideo = async (
 ) => {
   try {
     const body = req.body;
-    console.log(body);
+    const vuid = useID(2);
     const video = mongoose.model("videos", videoSchema);
     const newUser = new video({
-      vuid: useID(2),
+      vuid: vuid,
       url: body.vurl,
       title: body.title,
       authorId: body.authorId,
@@ -27,6 +27,7 @@ const deployVideo = async (
     console.log(resp);
     res.status(200).json({
       success: true,
+      vuid: vuid
     });
   } catch (err) {
     console.log(err);
