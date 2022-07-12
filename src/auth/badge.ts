@@ -10,6 +10,13 @@ const badge = async (req: express.Request, res: express.Response) => {
     let date: any = new Date();
     const user = mongoose.model("users", userSchema);
     let resp = await user.find({ username: req.query.username });
+    if (!resp[0].creator) {
+      res.status(400).json({
+        success: false,
+        error: "User is not a creator",
+      });
+      return;
+    }
     const backgroundGradient = await loadImage(
       "https://cdn.huelet.net/assets/background%20gradient.png"
     );
