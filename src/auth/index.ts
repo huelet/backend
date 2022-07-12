@@ -1,6 +1,7 @@
 import signup from "./signup";
 import login from "./login";
 import verifyAuth from "./authVerify";
+import badge from "./badge";
 import { setPrivacy, getPrivacy } from "./settings/privacy";
 import { setPfp, uploadPfp, getPfp } from "./settings/avatar";
 import { setBio, getBio } from "./settings/bio";
@@ -12,6 +13,7 @@ export {
   signup,
   login,
   verifyAuth,
+  badge,
   userLookup,
   setPrivacy,
   getPrivacy,

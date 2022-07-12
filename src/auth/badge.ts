@@ -85,3 +85,4 @@ const badge = async (req: express.Request, res: express.Response) => {
     return;
   }
 };
+export default badge;

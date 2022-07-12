@@ -4,6 +4,7 @@ import cors from "cors";
 import {
   signup,
   login,
+  badge,
   verifyAuth,
   userLookup,
   setPrivacy,
@@ -86,6 +87,7 @@ app.get("/auth/pronouns", getPronouns);
 app.patch("/auth/pronouns", bodyParser.json(), authenticateToken, setPronouns);
 app.get("/auth/location", bodyParser.json(), getLocation);
 app.patch("/auth/location", bodyParser.json(), authenticateToken, setLocation);
+app.get("/auth/badge", authenticateToken, badge);
 
 db();
 app.listen(PORT, async () => {
