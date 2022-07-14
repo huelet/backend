@@ -62,7 +62,7 @@ const avatarUpload = multer({
   }),
 });
 
-app.get("/videos/:vuid", getVideoInfo);
+app.get("/videos/lookup/:vuid", getVideoInfo);
 app.post("/videos/upload/item", videoUpload.any(), postVideoToCDN);
 app.post("/videos/deploy/item", bodyParser.json(), deployVideo);
 app.post("/videos/interact/upvote/:vuid", bodyParser.json(), upvoteVideo);
