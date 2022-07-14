@@ -25,13 +25,13 @@ import {
   downvoteVideo,
   getComments,
   addComment,
-  searchVideos
 } from "./src/interact/index";
 import db from "./src/utils/db";
 import {
   authenticateToken,
   authenticateTokenRoute,
 } from "./src/auth/jwt/token";
+import { searchVideo } from "./src/search";
 import bodyParser from "body-parser";
 import multer from "multer";
 import { useID } from "@dothq/id";
@@ -70,7 +70,7 @@ app.post("/videos/interact/downvote/:vuid", bodyParser.json(), downvoteVideo);
 app.get("/videos/interact/comments/:vuid", getComments);
 app.post("/videos/interact/comments/:vuid", bodyParser.json(), addComment);
 app.delete("/videos/interact/comments/:vuid");
-app.get("/videos/search", searchVideos);
+app.get("/videos/search", bodyParser.json(), searchVideo);
 app.post("/auth/up", bodyParser.json(), signup);
 app.post("/auth/in", bodyParser.json(), login);
 app.post("/auth/verify", bodyParser.json(), verifyAuth);
