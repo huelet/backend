@@ -3,6 +3,10 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const client = new MeiliSearch({ host: "https://search.huelet.net", apiKey: process.env.MEILISEARCH_API_KEY });
+const client = new MeiliSearch({
+  host: "https://search.huelet.net",
+  apiKey: process.env.MEILISEARCH_API_KEY,
+});
+const search = client.index("videos");
 
-export default client;
+export { client, search };
