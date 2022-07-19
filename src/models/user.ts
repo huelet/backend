@@ -13,7 +13,7 @@ const userSchema = new Schema({
     pronouns: Object,
     creator: { type: Boolean, default: false },
     approved: { type: Boolean, default: false },
-    followers: { type: Object, default: [] },
+    followers: { type: Object || Number, default: [] },
     videos: { type: Object, default: null },
     userCreated: Number,
     userAuth: Number

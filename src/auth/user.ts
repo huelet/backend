@@ -19,6 +19,7 @@ const userLookup = async (req: express.Request, res: express.Response) => {
         avatar: resp[0].pfp,
         pronouns: resp[0].pronouns,
         location: resp[0].location,
+        followers: resp[0].followers,
         creator: resp[0].creator,
         approved: resp[0].approved,
       },
